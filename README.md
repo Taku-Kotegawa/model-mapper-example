@@ -115,6 +115,7 @@ ModelMapperが提供するカスタマイズ機能を調査していきます。
 - DeepCopy
 - 送信元フィールドがnullの場合の挙動
 - リスト(Collection)のマージ or 置き換え
+- Mapからクラスへのマッピング
 - 変換(Converter)の使用
 - 条件付き変換(Conditional Mapping)
 - プロバイダー(Providers)
@@ -269,6 +270,19 @@ System.out.println("target: " + target.getStringList());
 // 結果
 // source: [a, b, c]
 // target: a,b,c      // コンバーターの結果で置換されている
+```
+
+### Mapからクラスへのマッピング
+```java
+var mapper = new ModelMapper();
+var source = new LinkedHashMap<>();
+source.put("firstName", "firstName_xxx");
+var target = mapper.map(source, Target.class);
+System.out.println("source: " + source);
+System.out.println("target: " + target);
+// 結果
+// source: source: {firstName=firstName_xxx}
+// target: target: Target(firstName=firstName_xxx, fullName=null, address=null, company=null)
 ```
 
 ### 条件付き変換(Conditional Mapping)

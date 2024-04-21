@@ -9,6 +9,7 @@ import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -331,6 +332,25 @@ class Mapping001Test {
         // 結果
         // source: [a, b, c]
         // target: a,b,c
+    }
+
+    @Test
+    @DisplayName("Map→クラス")
+    void test014() {
+        var mapper = new ModelMapper();
+
+        var source = new LinkedHashMap<>();
+        source.put("firstName", "firstName_xxx");
+
+        var target = mapper.map(source, Target.class);
+
+        System.out.println("source: " + source);
+        System.out.println("target: " + target);
+
+        // 結果
+        // source: source: {firstName=firstName_xxx}
+        // target: target: Target(firstName=firstName_xxx, fullName=null, address=null, company=null)
+
     }
 
     /**
